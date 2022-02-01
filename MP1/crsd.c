@@ -18,6 +18,7 @@ struct Node {
 
 struct Node *head=NULL;
 
+//adds a name and port into a linked list
 void add_name(char *name, int port) {
 	struct Node * new_node = NULL;
 	new_node = (struct Node *)malloc(sizeof(struct Node));
@@ -27,6 +28,7 @@ void add_name(char *name, int port) {
 	head = new_node;
 }
 
+//searches the linked list for a specific name
 bool search_names(char *name)
 {
 	struct Node * temp = head;
@@ -37,26 +39,21 @@ bool search_names(char *name)
 		temp = temp->next;
 	}
 	return false;
-// 	Node* current = head;
-// 	while (current != NULL)
-// 	{
-// 		// printf("Current->name: %s\n", current->name);
-//      	if (current->name == name){
-//           	return true;
-//      	}
-//      	current = current->next;
-// 	}
-// 	return false;
 }
 
+//displays all availble chatrooms
 void display_names(){
-    struct Node *temp = head;
-    while(temp != NULL){
-        printf("DISPLAY: %s\n", temp->name);
-        temp = temp->next;
+	printf("------Available Chatrooms------\n");
+	struct Node *temp = head;
+	int ctr = 0;
+	while(temp != NULL){
+	   printf("Item %d: %s\n",ctr, temp->name);
+	   temp = temp->next;
+	   ctr = ctr + 1;
     }
 }
 
+//initializing the server
 int setup_server(const int port)
 {
 	int server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -70,6 +67,7 @@ int setup_server(const int port)
 	return server_socket;
 }
 
+//function used to create a new chatroom on a specific port
 void *new_chatroom(void* args){
 	int *argptr = (int *) args;
 	int port = *argptr;
@@ -89,6 +87,7 @@ void *new_chatroom(void* args){
 	// }
 }
 
+//create command adds names and ports to linked list and checks for availibility in room names
 void create_command(char *name, int client_socket){
 	// int port = (rand() % (99999 - 10000 + 1)) + 10000;
 	int port = 123123;
@@ -116,9 +115,10 @@ void create_command(char *name, int client_socket){
 		send(client_socket, message, sizeof(message)+100, 0);
 		printf("That name is already taken.\n");
 	}
-	// display_names();
+	display_names();
 }
 
+//sends the user a port number so they can connect to the respective server
 void join_command(char* name, int client_socket){
 	//check to see if room name is in char array
 	if (!search_names(name)){
@@ -128,6 +128,7 @@ void join_command(char* name, int client_socket){
 	//send port number to client so they can connect
 }
 
+//deletes a specific name and port from linked list
 void delete_func(char* name) {
    struct Node* current = head;
    struct Node* previous = NULL;
@@ -152,6 +153,7 @@ void delete_func(char* name) {
     }
 }
 
+//deletes a specific name and port from linked list and terminates chatroom
 void delete_command(char* name, int client_socket){
 	//check to see if name matches up
 	// if (search_names(name)){
@@ -170,6 +172,7 @@ void delete_command(char* name, int client_socket){
 	//close master socket
 }
 
+//lists all the available rooms in the linked list
 void list_func(int client_socket){
 	struct Node *temp = head;
 	while(temp != NULL){
@@ -177,6 +180,8 @@ void list_func(int client_socket){
 	   temp = temp->next;
     }
 }
+
+//idles and waits for a command from client then acts accordingly
 void receive_command(int client_socket)
 {
 	char command[256];
