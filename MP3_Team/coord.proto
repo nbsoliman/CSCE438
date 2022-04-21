@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package csce438;
+
+import "google/protobuf/timestamp.proto";
+
+service SNSCoord{
+  rpc Access (CoordRequest) returns (CoordReply) {}
+  
+  rpc Heartbeat (stream CoordMessage) returns (stream CoordMessage) {} 
+  
+  rpc GetSlaveInfo (MasterRequest) returns (MasterReply) {}
+  
+  rpc FillFollowerSyncRT (FollowerSyncRTInfo) returns (SyncIdInfo) {}
+  
+  rpc GetFollowerSyncInfo (ClientInfo) returns (FollowerSyncInfo) {}
+  
+  rpc GetClusterInfo (SyncIdInfo) returns (ClusterInfo) {}
+}
+
+message CoordRequest {
+  string client_id = 1;
+}
+
+message CoordReply {
+  string server_ip_address = 1;
+  string server_port = 2;
+}
+
+message CoordMessage {
+  string server_ip = 1;
+  string server_port2 = 2;
+  string status = 3;
+  string server_type = 4;
+}
+
+message MasterRequest {
+  string server_id = 1;
+}
+
+message MasterReply {
+  string slave_ip = 1;
+  string slave_port = 2;
+}
+
+message FollowerSyncRTInfo {
+  string sync_ip_address = 1;
+  string sync_port = 2;
+  string sync_id = 3;
+}
+
+message ClientInfo {
+  string client_id2 = 1;
+}
+
+message FollowerSyncInfo {
+  string sync_ip_address = 1;
+  string sync_port = 2;
+  string sync_id2 = 3;
+}
+
+message SyncIdInfo {
+  string sync_id = 1;
+}
+
+message ClusterInfo {
+  repeated string cluster_clients = 1;
+}
+
+
