@@ -47,7 +47,7 @@ struct TableStruct_synchronizer_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,6 +55,12 @@ struct TableStruct_synchronizer_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_synchronizer_2eproto;
 namespace csce438 {
+class ClientReply;
+struct ClientReplyDefaultTypeInternal;
+extern ClientReplyDefaultTypeInternal _ClientReply_default_instance_;
+class ClientRequest;
+struct ClientRequestDefaultTypeInternal;
+extern ClientRequestDefaultTypeInternal _ClientRequest_default_instance_;
 class FollowReply;
 struct FollowReplyDefaultTypeInternal;
 extern FollowReplyDefaultTypeInternal _FollowReply_default_instance_;
@@ -66,6 +72,8 @@ struct SyncMessageDefaultTypeInternal;
 extern SyncMessageDefaultTypeInternal _SyncMessage_default_instance_;
 }  // namespace csce438
 PROTOBUF_NAMESPACE_OPEN
+template<> ::csce438::ClientReply* Arena::CreateMaybeMessage<::csce438::ClientReply>(Arena*);
+template<> ::csce438::ClientRequest* Arena::CreateMaybeMessage<::csce438::ClientRequest>(Arena*);
 template<> ::csce438::FollowReply* Arena::CreateMaybeMessage<::csce438::FollowReply>(Arena*);
 template<> ::csce438::FollowRequest* Arena::CreateMaybeMessage<::csce438::FollowRequest>(Arena*);
 template<> ::csce438::SyncMessage* Arena::CreateMaybeMessage<::csce438::SyncMessage>(Arena*);
@@ -386,6 +394,328 @@ class FollowReply final :
 };
 // -------------------------------------------------------------------
 
+class ClientRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:csce438.ClientRequest) */ {
+ public:
+  inline ClientRequest() : ClientRequest(nullptr) {}
+  ~ClientRequest() override;
+  explicit constexpr ClientRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ClientRequest(const ClientRequest& from);
+  ClientRequest(ClientRequest&& from) noexcept
+    : ClientRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ClientRequest& operator=(const ClientRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ClientRequest& operator=(ClientRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ClientRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ClientRequest* internal_default_instance() {
+    return reinterpret_cast<const ClientRequest*>(
+               &_ClientRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(ClientRequest& a, ClientRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ClientRequest* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ClientRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ClientRequest* New() const final {
+    return new ClientRequest();
+  }
+
+  ClientRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ClientRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ClientRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const ClientRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ClientRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "csce438.ClientRequest";
+  }
+  protected:
+  explicit ClientRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kServerRequesterIdFieldNumber = 1,
+    kServerReplierIdFieldNumber = 2,
+  };
+  // string server_requester_id = 1;
+  void clear_server_requester_id();
+  const std::string& server_requester_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_server_requester_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_server_requester_id();
+  PROTOBUF_MUST_USE_RESULT std::string* release_server_requester_id();
+  void set_allocated_server_requester_id(std::string* server_requester_id);
+  private:
+  const std::string& _internal_server_requester_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_server_requester_id(const std::string& value);
+  std::string* _internal_mutable_server_requester_id();
+  public:
+
+  // string server_replier_id = 2;
+  void clear_server_replier_id();
+  const std::string& server_replier_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_server_replier_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_server_replier_id();
+  PROTOBUF_MUST_USE_RESULT std::string* release_server_replier_id();
+  void set_allocated_server_replier_id(std::string* server_replier_id);
+  private:
+  const std::string& _internal_server_replier_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_server_replier_id(const std::string& value);
+  std::string* _internal_mutable_server_replier_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:csce438.ClientRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr server_requester_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr server_replier_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_synchronizer_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ClientReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:csce438.ClientReply) */ {
+ public:
+  inline ClientReply() : ClientReply(nullptr) {}
+  ~ClientReply() override;
+  explicit constexpr ClientReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ClientReply(const ClientReply& from);
+  ClientReply(ClientReply&& from) noexcept
+    : ClientReply() {
+    *this = ::std::move(from);
+  }
+
+  inline ClientReply& operator=(const ClientReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ClientReply& operator=(ClientReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ClientReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ClientReply* internal_default_instance() {
+    return reinterpret_cast<const ClientReply*>(
+               &_ClientReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ClientReply& a, ClientReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ClientReply* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ClientReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ClientReply* New() const final {
+    return new ClientReply();
+  }
+
+  ClientReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ClientReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ClientReply& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const ClientReply& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ClientReply* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "csce438.ClientReply";
+  }
+  protected:
+  explicit ClientReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kClientsFieldNumber = 1,
+  };
+  // repeated string clients = 1;
+  int clients_size() const;
+  private:
+  int _internal_clients_size() const;
+  public:
+  void clear_clients();
+  const std::string& clients(int index) const;
+  std::string* mutable_clients(int index);
+  void set_clients(int index, const std::string& value);
+  void set_clients(int index, std::string&& value);
+  void set_clients(int index, const char* value);
+  void set_clients(int index, const char* value, size_t size);
+  std::string* add_clients();
+  void add_clients(const std::string& value);
+  void add_clients(std::string&& value);
+  void add_clients(const char* value);
+  void add_clients(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& clients() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_clients();
+  private:
+  const std::string& _internal_clients(int index) const;
+  std::string* _internal_add_clients();
+  public:
+
+  // @@protoc_insertion_point(class_scope:csce438.ClientReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> clients_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_synchronizer_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SyncMessage final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:csce438.SyncMessage) */ {
  public:
@@ -434,7 +764,7 @@ class SyncMessage final :
                &_SyncMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(SyncMessage& a, SyncMessage& b) {
     a.Swap(&b);
@@ -729,6 +1059,181 @@ inline void FollowReply::set_allocated_msg(std::string* msg) {
 
 // -------------------------------------------------------------------
 
+// ClientRequest
+
+// string server_requester_id = 1;
+inline void ClientRequest::clear_server_requester_id() {
+  server_requester_id_.ClearToEmpty();
+}
+inline const std::string& ClientRequest::server_requester_id() const {
+  // @@protoc_insertion_point(field_get:csce438.ClientRequest.server_requester_id)
+  return _internal_server_requester_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ClientRequest::set_server_requester_id(ArgT0&& arg0, ArgT... args) {
+ 
+ server_requester_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:csce438.ClientRequest.server_requester_id)
+}
+inline std::string* ClientRequest::mutable_server_requester_id() {
+  std::string* _s = _internal_mutable_server_requester_id();
+  // @@protoc_insertion_point(field_mutable:csce438.ClientRequest.server_requester_id)
+  return _s;
+}
+inline const std::string& ClientRequest::_internal_server_requester_id() const {
+  return server_requester_id_.Get();
+}
+inline void ClientRequest::_internal_set_server_requester_id(const std::string& value) {
+  
+  server_requester_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* ClientRequest::_internal_mutable_server_requester_id() {
+  
+  return server_requester_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* ClientRequest::release_server_requester_id() {
+  // @@protoc_insertion_point(field_release:csce438.ClientRequest.server_requester_id)
+  return server_requester_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void ClientRequest::set_allocated_server_requester_id(std::string* server_requester_id) {
+  if (server_requester_id != nullptr) {
+    
+  } else {
+    
+  }
+  server_requester_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), server_requester_id,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:csce438.ClientRequest.server_requester_id)
+}
+
+// string server_replier_id = 2;
+inline void ClientRequest::clear_server_replier_id() {
+  server_replier_id_.ClearToEmpty();
+}
+inline const std::string& ClientRequest::server_replier_id() const {
+  // @@protoc_insertion_point(field_get:csce438.ClientRequest.server_replier_id)
+  return _internal_server_replier_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ClientRequest::set_server_replier_id(ArgT0&& arg0, ArgT... args) {
+ 
+ server_replier_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:csce438.ClientRequest.server_replier_id)
+}
+inline std::string* ClientRequest::mutable_server_replier_id() {
+  std::string* _s = _internal_mutable_server_replier_id();
+  // @@protoc_insertion_point(field_mutable:csce438.ClientRequest.server_replier_id)
+  return _s;
+}
+inline const std::string& ClientRequest::_internal_server_replier_id() const {
+  return server_replier_id_.Get();
+}
+inline void ClientRequest::_internal_set_server_replier_id(const std::string& value) {
+  
+  server_replier_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* ClientRequest::_internal_mutable_server_replier_id() {
+  
+  return server_replier_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* ClientRequest::release_server_replier_id() {
+  // @@protoc_insertion_point(field_release:csce438.ClientRequest.server_replier_id)
+  return server_replier_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void ClientRequest::set_allocated_server_replier_id(std::string* server_replier_id) {
+  if (server_replier_id != nullptr) {
+    
+  } else {
+    
+  }
+  server_replier_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), server_replier_id,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:csce438.ClientRequest.server_replier_id)
+}
+
+// -------------------------------------------------------------------
+
+// ClientReply
+
+// repeated string clients = 1;
+inline int ClientReply::_internal_clients_size() const {
+  return clients_.size();
+}
+inline int ClientReply::clients_size() const {
+  return _internal_clients_size();
+}
+inline void ClientReply::clear_clients() {
+  clients_.Clear();
+}
+inline std::string* ClientReply::add_clients() {
+  std::string* _s = _internal_add_clients();
+  // @@protoc_insertion_point(field_add_mutable:csce438.ClientReply.clients)
+  return _s;
+}
+inline const std::string& ClientReply::_internal_clients(int index) const {
+  return clients_.Get(index);
+}
+inline const std::string& ClientReply::clients(int index) const {
+  // @@protoc_insertion_point(field_get:csce438.ClientReply.clients)
+  return _internal_clients(index);
+}
+inline std::string* ClientReply::mutable_clients(int index) {
+  // @@protoc_insertion_point(field_mutable:csce438.ClientReply.clients)
+  return clients_.Mutable(index);
+}
+inline void ClientReply::set_clients(int index, const std::string& value) {
+  clients_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:csce438.ClientReply.clients)
+}
+inline void ClientReply::set_clients(int index, std::string&& value) {
+  clients_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:csce438.ClientReply.clients)
+}
+inline void ClientReply::set_clients(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  clients_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:csce438.ClientReply.clients)
+}
+inline void ClientReply::set_clients(int index, const char* value, size_t size) {
+  clients_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:csce438.ClientReply.clients)
+}
+inline std::string* ClientReply::_internal_add_clients() {
+  return clients_.Add();
+}
+inline void ClientReply::add_clients(const std::string& value) {
+  clients_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:csce438.ClientReply.clients)
+}
+inline void ClientReply::add_clients(std::string&& value) {
+  clients_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:csce438.ClientReply.clients)
+}
+inline void ClientReply::add_clients(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  clients_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:csce438.ClientReply.clients)
+}
+inline void ClientReply::add_clients(const char* value, size_t size) {
+  clients_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:csce438.ClientReply.clients)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+ClientReply::clients() const {
+  // @@protoc_insertion_point(field_list:csce438.ClientReply.clients)
+  return clients_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+ClientReply::mutable_clients() {
+  // @@protoc_insertion_point(field_mutable_list:csce438.ClientReply.clients)
+  return &clients_;
+}
+
+// -------------------------------------------------------------------
+
 // SyncMessage
 
 // string username = 1;
@@ -901,6 +1406,10 @@ SyncMessage::mutable_followers() {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

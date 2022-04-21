@@ -38,6 +38,8 @@ service SNSSync{
   rpc InformFollow (FollowRequest) returns (FollowReply) {}
   
   rpc InformTimeline (stream SyncMessage) returns (stream SyncMessage) {}
+  
+  rpc AskForClients (ClientRequest) returns (ClientReply) {}
 }
 
 message FollowRequest {
@@ -47,6 +49,15 @@ message FollowRequest {
 
 message FollowReply {
   string msg = 1;
+}
+
+message ClientRequest {
+  string server_requester_id = 1;
+  string server_replier_id = 2;
+}
+
+message ClientReply {
+  repeated string clients = 1;
 }
 
 message SyncMessage {

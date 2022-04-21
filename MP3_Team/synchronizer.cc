@@ -43,6 +43,8 @@ using csce438::FollowerSyncInfo;
 using csce438::FollowerSyncRTInfo;
 using csce438::SyncIdInfo;
 using csce438::ClusterInfo;
+using csce438::ClientRequest;
+using csce438::ClientReply;
 
 std::unique_ptr<SNSSync::Stub> syncOne_stub_;
 std::unique_ptr<SNSSync::Stub> syncTwo_stub_;
@@ -181,6 +183,16 @@ private:
 		// Change the two fields of followingfilesize and mod_time in the client-db
 		// Review AddClientToDB method
 		// Clear newPosts and followers in PeriodicCheck
+		return Status::OK;
+	}
+	
+	Status AskForClients(ServerContext* context, const ClientRequest* request, ClientReply* reply) override {
+		std::ifstream in("slave" + request->server_replier_id() + "clusterusers.txt");
+		std::string line;
+		while (getline(in, line)) {
+			reply->add_clients(line);
+		}
+		
 		return Status::OK;
 	}
 };
@@ -697,6 +709,111 @@ void PeriodicTimelineCheck(std::string hostname, std::string cport, std::string 
   // As you iterate through client file, once the iteration is more than the number of lines stored, then send the new lines to the gRPC streams
 } // PeriodicTimelineCheck
 
+void PeriodicUsersCheck(std::string server_id) {
+  std::ofstream initialuser_file("slave" + server_id + "users.txt", std::ios::app|std::ios::out|std::ios::in);
+  initialuser_file.close();
+  std::ofstream initialuser_file2("master" + server_id + "users.txt", std::ios::app|std::ios::out|std::ios::in);
+  initialuser_file2.close();
+  sleep(30);
+  while (true) {
+  std::ofstream user_file;
+  user_file.open("slave" + server_id + "users.txt",std::ofstream::out|std::ofstream::trunc);
+  user_file.close();
+  std::ofstream user_file3;
+  user_file3.open("master" + server_id + "users.txt",std::ofstream::out|std::ofstream::trunc);
+  user_file.close();
+  std::ofstream user_file2("slave" + server_id + "users.txt",std::ios::app|std::ios::out|std::ios::in);
+  std::ifstream in("slave" + server_id + "clusterusers.txt");
+  std::string line;
+  while (getline(in, line)) {
+  	user_file2 << line << std::endl;
+  	user_file3 << line << std::endl;
+  }
+  
+  ClientContext context;
+  ClientRequest req;
+  req.set_server_requester_id(server_id);
+  ClientReply rep;
+	  	
+  if (server_id == "1") {
+	//if (syncInfo.sync_id2() == "2") {
+		ClientContext context1;
+		ClientRequest req1;
+		ClientReply rep1;
+		req1.set_server_requester_id(server_id);
+		req1.set_server_replier_id("2");
+		syncOne_stub_->AskForClients(&context1, req1, &rep1);
+		for (int i = 0; i < rep1.clients().size(); i++) {
+			user_file2 << rep1.clients(i) << std::endl;
+			user_file3 << rep1.clients(i) << std::endl;
+		}
+	//}
+	//if (syncInfo.sync_id2() == "3") {
+		ClientContext context2;
+		ClientRequest req2;
+		ClientReply rep2;
+		req2.set_server_requester_id(server_id);
+		req2.set_server_replier_id("3");
+		syncOne_stub_->AskForClients(&context2, req2, &rep2);
+		for (int i = 0; i < rep2.clients().size(); i++) {
+			user_file2 << rep2.clients(i) << std::endl;
+			user_file3 << rep2.clients(i) << std::endl;
+		}
+	//}
+  } else if (server_id == "2") {
+	//if (syncInfo.sync_id2() == "2") {
+		ClientContext context1;
+		ClientRequest req1;
+		ClientReply rep1;
+		req1.set_server_requester_id(server_id);
+		req1.set_server_replier_id("1");
+		syncOne_stub_->AskForClients(&context1, req1, &rep1);
+		for (int i = 0; i < rep1.clients().size(); i++) {
+			user_file2 << rep1.clients(i) << std::endl;
+			user_file3 << rep1.clients(i) << std::endl;
+		}
+	//}
+	//if (syncInfo.sync_id2() == "3") {
+		ClientContext context2;
+		ClientRequest req2;
+		ClientReply rep2;
+		req2.set_server_requester_id(server_id);
+		req2.set_server_replier_id("3");
+		syncOne_stub_->AskForClients(&context2, req2, &rep2);
+		for (int i = 0; i < rep2.clients().size(); i++) {
+			user_file2 << rep2.clients(i) << std::endl;
+			user_file3 << rep2.clients(i) << std::endl;
+		}
+	//}
+  } else if (server_id == "3") {
+	//if (syncInfo.sync_id2() == "2") {
+		ClientContext context1;
+		ClientRequest req1;
+		ClientReply rep1;
+		req1.set_server_requester_id(server_id);
+		req1.set_server_replier_id("1");
+		syncOne_stub_->AskForClients(&context1, req1, &rep1);
+		for (int i = 0; i < rep1.clients().size(); i++) {
+			user_file2 << rep1.clients(i) << std::endl;
+			user_file3 << rep1.clients(i) << std::endl;
+		}
+	//}
+	//if (syncInfo.sync_id2() == "3") {
+		ClientContext context2;
+		ClientRequest req2;
+		ClientReply rep2;
+		req2.set_server_requester_id(server_id);
+		req2.set_server_replier_id("2");
+		syncOne_stub_->AskForClients(&context2, req2, &rep2);
+		for (int i = 0; i < rep2.clients().size(); i++) {
+			user_file2 << rep2.clients(i) << std::endl;
+			user_file3 << rep2.clients(i) << std::endl;
+		}
+	//}
+  } // else if
+  sleep(30);
+  }
+}
 
 int main(int argc, char** argv) {
     std::string hostname = "localhost";
@@ -723,10 +840,12 @@ int main(int argc, char** argv) {
     std::thread thread_one(RunServer, hostname, cport, port, server_id);
     std::thread thread_two(PeriodicTimelineCheck, hostname, cport, server_id);
     std::thread thread_three(PeriodicFollowingCheck, hostname, cport, server_id);
+    std::thread thread_four(PeriodicUsersCheck, server_id);
     
     thread_one.join();
     thread_two.join();
     thread_three.join();
+    thread_four.join();
     
     
     //Periodic checks

@@ -81,6 +81,7 @@ using grpc::ClientReaderWriter;
 using grpc::ClientWriter;
 
 std::string t = "master";
+std::string identifier;
 
 struct Client {
   std::string username;
@@ -132,11 +133,18 @@ private:
     slave_stub_->List(&mastercontext, masterrequest, &masterreply);
     }
     
-    Client user = client_db[find_user(request->username())];
+    /*Client user = client_db[find_user(request->username())];
     int index = 0;
     for(Client c : client_db){
       list_reply->add_all_users(c.username);
+    }*/
+    
+    std::string line1;
+    std::ifstream users(t + identifier + "users.txt");
+    while (getline(users, line1)) {
+    	list_reply->add_all_users(line1);
     }
+    
     
     /*
     std::vector<Client*>::const_iterator it;
@@ -268,6 +276,8 @@ private:
       c.username = username;
       client_db.push_back(c);
       reply->set_msg("Login Successful!");
+      std::ofstream cluster_file(t + identifier + "clusterusers.txt",std::ios::app|std::ios::out|std::ios::in);
+      cluster_file << username << std::endl;
     }
     else{ 
       Client *user = &client_db[user_index];
@@ -277,6 +287,8 @@ private:
         std::string msg = "Welcome Back " + user->username;
 	reply->set_msg(msg);
         user->connected = true;
+        std::ofstream cluster_file(t + identifier + "clusterusers.txt",std::ios::app|std::ios::out|std::ios::in);
+        cluster_file << username << std::endl;
       }
     }
     return Status::OK;
@@ -395,6 +407,17 @@ private:
     } // while
     //If the client disconnected from Chat Mode, set connected to false
     c->connected = false;
+    
+    std::ofstream cluster_file;
+    cluster_file.open(t + identifier + "clusterusers.txt",std::ofstream::out|std::ofstream::trunc);
+    cluster_file.close();
+    std::ofstream cluster_file2(t + identifier + "clusterusers.txt",std::ios::app|std::ios::out|std::ios::in);
+    for (Client c : client_db) {
+    	if (c.connected == true) {
+    		cluster_file2 << c.username << std::endl; 
+    	}
+    }
+    
     return Status::OK;
   } // SlaveTimeline
   
@@ -533,6 +556,16 @@ private:
     } // while
     //If the client disconnected from Chat Mode, set connected to false
     c->connected = false;
+    std::ofstream cluster_file;
+    cluster_file.open(t + identifier + "clusterusers.txt",std::ofstream::out|std::ofstream::trunc);
+    cluster_file.close();
+    std::ofstream cluster_file2(t + identifier + "clusterusers.txt",std::ios::app|std::ios::out|std::ios::in);
+    for (Client c : client_db) {
+    	if (c.connected == true) {
+    		cluster_file2 << c.username << std::endl; 
+    	}
+    }
+    
     return Status::OK;
   } // Timeline
 
@@ -687,6 +720,9 @@ int main(int argc, char** argv) {
               std::cerr << "Invalid Command Line Argument\n";
       }
   }
+  
+  identifier = server_id;
+  
   //thread 1
   std::thread thread_one(StreamHeartbeat, hostname, cport, t, port);
   
